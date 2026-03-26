@@ -1,6 +1,6 @@
 from waitress import serve
 from flask import Flask, send_file, abort
-import os
+import os, sys
 
 app = Flask(__name__)
 
@@ -14,6 +14,14 @@ def serve_tile(z, x, y):
     else:
         # Returns a 404 if the specific tile doesn't exist
         abort(404)
+
 if __name__ == '__main__':
-	app.run(debug=False, host='0.0.0.0', port=9999)
-#	serve(app, host='0.0.0.0', port=9999)
+    if len(sys.argv) <= 1:
+        print(f"Usage: python {sys.argv[0]} [port]")
+        sys.exit(1)
+
+    if len(sys.argv) > 2 and 'dev' in sys.argv:
+        app.run(debug=False, host='0.0.0.0', port=int(sys.argv[1]))
+    else:
+        print(f"Starting server on port {sys.argv[1]}...")
+        serve(app, host='0.0.0.0', port=int(sys.argv[1]))
