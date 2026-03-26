@@ -1,7 +1,9 @@
-import os
+import os, sys
 from PIL import Image
 
-def generate_tiles_smart(image_path, output_dir, max_zoom):
+
+def generate_tiles(image_path, map_name, max_zoom):
+    map_name = f"tiles/{map_name}"
     original_img = Image.open(image_path).convert("RGBA")
     tile_size = 256
 
@@ -42,10 +44,14 @@ def generate_tiles_smart(image_path, output_dir, max_zoom):
                 
                 # Only save if the tile isn't completely empty/transparent
                 if tile.getbbox(): 
-                    save_path = os.path.join(output_dir, str(z), str(x))
+                    save_path = os.path.join(map_name, str(z), str(x))
                     os.makedirs(save_path, exist_ok=True)
                     tile.save(os.path.join(save_path, f"{y}.png"))
-                    print(f"Saved: {z}/{x}/{y}.png")
+                    print(f"Saved: {map_name}/{z}/{x}/{y}.png")
 
 if __name__ == "__main__":
-    generate_tiles_smart("map.png", "tiles", 3)
+    if len(sys.argv) != 4:
+        print(f"Usage: python {sys.argv[0]} <image.png> <map_name> <max_zoom>")
+        sys.exit(1)
+
+    generate_tiles(sys.argv[1], sys.argv[2], int(sys.argv[3]))

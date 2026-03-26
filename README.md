@@ -19,7 +19,7 @@ This script takes a source image (e.g., `map.png`) and generates a directory of 
 
 This is a lightweight Flask web application that serves the generated tiles.
 
--   It exposes a single URL endpoint: `/<z>/<x>/<y>.png`.
+-   It exposes a single URL endpoint: `/<map_name>/<z>/<x>/<y>.png`.
 -   When a request is received, it looks for the corresponding tile in the `tiles` directory.
 -   If the tile exists, it's served as a PNG image.
 -   If the tile does not exist (either because it was outside the map bounds or was completely transparent), it returns a `404 Not Found` error.
@@ -30,11 +30,11 @@ This is a lightweight Flask web application that serves the generated tiles.
     Put your source map image in the root of the project directory and name it `map.png`.
 
 2.  **Generate the tiles:**
-    Run the `generate.py` script. You can modify the `max_zoom` level at the bottom of the script.
+    Run the `generate.py` script with the map file, map name, and max zoom level.
     ```bash
-    python generate.py
+    python generate.py map.png mall 2
     ```
-    This will create a `tiles` directory with the generated tile images structured as `tiles/{z}/{x}/{y}.png`.
+    This will create a `tiles` directory with the generated tile images structured as `tiles/mapname/{z}/{x}/{y}.png`.
 
 3.  **Run the server:**
     Start the Flask application.
@@ -44,10 +44,10 @@ This is a lightweight Flask web application that serves the generated tiles.
     The server will start on `http://0.0.0.0:5000`.
 
 4.  **Access the tiles:**
-    You can now access your map tiles from any application or browser at `http://localhost:5000/{z}/{x}/{y}.png`. For example: `http://localhost:5000/3/4/3.png`.
+    You can now access your map tiles from any application or browser at `http://localhost:5000/mapname/{z}/{x}/{y}.png`. For example: `http://localhost:5000/mall/1/2/0.png`.
 
     For use with `MIT App Inventor` you will need to either host this app on a VPS, Vercel (or similar), or self-host with port forwarding.
 
-    Once setup you can simply enter `http(s)://hostname:port/{z}/{x}/{y}.png` into the advanced options of the map and you image will load. 
+    Once setup you can simply enter `http(s)://hostname:port/mapname/{z}/{x}/{y}.png` into the advanced options of the map and you image will load. 
 
 

@@ -5,9 +5,9 @@ import os, sys
 app = Flask(__name__)
 
 # This looks for a file at tiles/z/x/y.png
-@app.route('/<int:z>/<int:x>/<int:y>.png')
-def serve_tile(z, x, y):
-    tile_path = f'tiles/{z}/{x}/{y}.png'
+@app.route('/<string:map_name>/<int:z>/<int:x>/<int:y>.png')
+def serve_tile(map_name, z, x, y):
+    tile_path = f'tiles/{map_name}/{z}/{x}/{y}.png'
     
     if os.path.exists(tile_path):
         return send_file(tile_path, mimetype='image/png')
