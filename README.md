@@ -3,7 +3,7 @@
 I made this project because I could not find an easy way to use a custom image as my map in MIT App Inventor. This project allows you to generate tiles from an image, which are then served on an endpoint in a standard XYZ tile format compatible with libraries like Leaflet.js or OpenLayers.  
 
 ## Live Example 
-`https://mit.sudo404.xyz/{z}/{x}/{y}.png`
+`https://mit.sudo404.xyz/mall/{z}/{x}/{y}.png`
 
 ## How It Works
 
